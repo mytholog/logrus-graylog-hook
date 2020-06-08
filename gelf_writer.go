@@ -49,15 +49,15 @@ const (
 // Message represents the contents of the GELF message.  It is gzipped
 // before sending.
 type Message struct {
-	Version  string                 `json:"version"`
+	Version  string                 `json:"-"`
 	Host     string                 `json:"host"`
-	Short    string                 `json:"short_message"`
-	Full     string                 `json:"full_message"`
+	Short    string                 `json:"msg"`
+	Full     string                 `json:"-"`
 	TimeUnix float64                `json:"timestamp"`
 	Level    int32                  `json:"level"`
-	Facility string                 `json:"facility"`
-	File     string                 `json:"file"`
-	Line     int                    `json:"line"`
+	Facility string                 `json:"-"`
+	File     string                 `json:"-"`
+	Line     int                    `json:"-"`
 	Extra    map[string]interface{} `json:"-"`
 }
 
