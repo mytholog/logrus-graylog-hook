@@ -54,7 +54,7 @@ type Message struct {
 	Short    string                 `json:"msg"`
 	Full     string                 `json:"-"`
 	TimeUnix float64                `json:"timestamp"`
-	Level    int32                  `json:"level"`
+	Level    string                  `json:"level"`
 	Facility string                 `json:"-"`
 	File     string                 `json:"-"`
 	Line     int                    `json:"-"`
@@ -289,7 +289,7 @@ func (w *Writer) Write(p []byte) (n int, err error) {
 		Short:    string(short),
 		Full:     string(full),
 		TimeUnix: float64(time.Now().UnixNano()/1000000) / 1000.,
-		Level:    6, // info
+		Level:    "info", // info
 		Facility: w.Facility,
 		Extra:    map[string]interface{}{},
 	}
@@ -350,7 +350,7 @@ func (m *Message) UnmarshalJSON(data []byte) error {
 		case "timestamp":
 			m.TimeUnix = v.(float64)
 		case "level":
-			m.Level = int32(v.(float64))
+			m.Level = fmt.Sprintf("%d",v)
 		case "facility":
 			m.Facility = v.(string)
 		case "file":
