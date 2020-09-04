@@ -196,7 +196,7 @@ func (hook *GraylogHook) sendEntry(entry graylogEntry) {
 		full = p
 	}
 
-	level := logrusLevelToSylog(entry.Level)
+	//level := logrusLevelToSylog(entry.Level)
 
 	// Don't modify entry.Data directly, as the entry will used after this hook was fired
 	extra := map[string]interface{}{}
@@ -238,7 +238,7 @@ func (hook *GraylogHook) sendEntry(entry graylogEntry) {
 		Short:    string(short),
 		Full:     string(full),
 		TimeUnix: float64(time.Now().UnixNano()/1000000) / 1000.,
-		Level:    level,
+		Level:    entry.Level.String(),
 		File:     entry.file,
 		Line:     entry.line,
 		Extra:    extra,
